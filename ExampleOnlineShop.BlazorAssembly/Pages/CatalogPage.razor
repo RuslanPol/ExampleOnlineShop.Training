@@ -1,0 +1,33 @@
+@page "/Catalog"
+@using global::HttpApiClient
+@using ExampleOnlineShop.Models
+
+
+@inject IShopClient ShopClient
+
+
+
+<h3>Catalog</h3>
+@if (_products is null)
+{
+   <h3>LOADING...</h3>
+}else
+{
+@foreach (var product in _products)
+
+    {
+        <p>@product</p>
+    }
+}
+
+
+@code {
+    private IReadOnlyCollection<Product>? _products = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        _products = await ShopClient.GetProducts();
+    }
+
+}
