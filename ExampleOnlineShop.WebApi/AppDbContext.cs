@@ -1,5 +1,4 @@
 using ExampleOnlineShop.Models;
-using ExampleShop.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace ExampleOnlineShop.WebApi;

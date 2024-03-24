@@ -1,12 +1,7 @@
 @page "/Catalog"
-@using global::HttpApiClient
 @using ExampleOnlineShop.Models
-
-
+@using ExampleOnlineShop.HttpApiClient
 @inject IShopClient ShopClient
-
-
-
 <h3>Catalog</h3>
 @if (_products is null)
 {
@@ -17,6 +12,7 @@
 
     {
         <p>@product</p>
+        <a href="ProductInfo/@product.Id">INFORMATION</a>
     }
 }
 

@@ -1,8 +1,8 @@
 using ExampleOnlineShop.Models;
-using ExampleOnlineShop.WebApi;
-using ExampleShop.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
+namespace ExampleOnlineShop.WebApi;
 
 internal class Program
 {
@@ -34,32 +34,33 @@ internal class Program
         app.MapGet("/products", async Task<List<Product>> (AppDbContext context)
             => await context.Products.ToListAsync());
 
-        app.MapGet("/products/get_product", async (AppDbContext context, [FromQuery] long id)
+        app.MapGet($"/products/get_product", async (
+                [FromServices]AppDbContext context,
+                [FromQuery] Guid id)
             =>
         {
             var product = await context.Products.FirstOrDefaultAsync(p => p.Id == id);
-            if (product is null)
-            {
-                return Results.NotFound($"Product whith  id = {id} not find!");
-            }
-
-            return Results.Ok($"{product.Name}");
+            return product;
+            // if (product is null)
+            // {
+            //     return Results.NotFound($"Product whith  id = {id} not find!");
+            // }
+            //
+            // return Results.Ok($"{product.Name}");
         });
 
-        app.MapPost("/products", async Task ([FromServices] AppDbContext context, [FromBody] Product product) =>
+        app.MapPost("/products", async (
+            [FromServices] AppDbContext context,
+            [FromBody] Product product) =>
         {
+            product.Id=Guid.NewGuid();
             await context.AddAsync(product);
             await context.SaveChangesAsync();
         });
 
-        app.MapDelete("/products/{id:long}", async ([FromRoute] long id, AppDbContext context) =>
-        {
-            var product = await context.Products.FindAsync(id); //теряется строгая типизация, поэтому лучше FirstAsync
-            if (product != null) context.Remove(product);
-            await context.SaveChangesAsync();
-        });
+        
 
-        app.MapDelete("/del_product", async ([FromBody] long id, AppDbContext context) =>
+        app.MapDelete("/del_product", async ([FromBody] Guid id,[FromServices] AppDbContext context) =>
         {
             Product? product = await context.Products.FirstOrDefaultAsync(p => p.Id == id);
             if (product != null)
@@ -68,7 +69,7 @@ internal class Program
                 await context.SaveChangesAsync();
             }
         });
-        app.MapDelete("/delete_product", async ([FromQuery] long id, AppDbContext context) =>
+        app.MapDelete("/delete_product", async ([FromQuery] Guid id, AppDbContext context) =>
         {
             Product? product = await context.Products.FirstOrDefaultAsync(p => p.Id == id);
             if (product != null)
@@ -79,7 +80,7 @@ internal class Program
         });
 
         app.MapPut("/products/update_product",
-            async ([FromQuery] long id, AppDbContext context, Product updateProduct) =>
+            async ([FromQuery] Guid id, AppDbContext context, Product updateProduct) =>
             {
                 var product = await context.Products.FirstOrDefaultAsync(p => p.Id == id);
                 if (product != null)
@@ -93,7 +94,7 @@ internal class Program
                 }
             });
         app.MapPut("/update_product", async (
-            [FromQuery] long id,
+            [FromQuery] Guid id,
             [FromServices] AppDbContext context,
             Product updateProduct) =>
         {

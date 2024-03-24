@@ -1,6 +1,5 @@
 ﻿using System.Net.Http.Json;
 using ExampleOnlineShop.Models;
-using HttpApiClient;
 
 namespace ExampleOnlineShop.HttpApiClient;
 
@@ -36,21 +35,21 @@ public class ShopClient : IShopClient
         responseMessage.EnsureSuccessStatusCode();
     }
 
-    public async Task<Product> GetProduct(long id)
+    public async Task<Product> GetProduct(Guid id)
     {
         var uri = $"{_host}/products/get_product?Id={id}";
-        var product = await _httpClient.GetFromJsonAsync<Product>(uri);
+        Product product = await _httpClient.GetFromJsonAsync<Product>(uri);
         return product!;
     }
 
-    public async Task UpdateProduct(long id, Product product)
+    public async Task UpdateProduct(Guid id, Product product)
     {
         var uri =$"{_host}/products/update_product?Id={id}";
         var responseMassage = await _httpClient.PutAsJsonAsync(uri, product);
         responseMassage.EnsureSuccessStatusCode();
     }
 
-    public async Task DeleteProduct(long id)
+    public async Task DeleteProduct(Guid id)
     {
         var uri =$"{_host}/products/delete_product?Id={id}";
         var responseMassage=await _httpClient.DeleteAsync(uri);

@@ -1,14 +1,14 @@
-namespace ExampleShop.Entities;
+namespace ExampleOnlineShop.Models;
 
 public class Category
 {
     
-    public long Id { get; set; }
+    public Guid Id { get; init; }
     public string Name { get; set; }
     
-    public Category(long id,string name)
+    public Category(Guid id,string name)
     {
-        Id = id;
+        Id = Guid.NewGuid();
         Name = name;
     }
     
