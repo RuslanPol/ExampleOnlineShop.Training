@@ -1,4 +1,5 @@
 using ExampleOnlineShop.Models;
+using ExampleOnlineShop.WebApi.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,13 +11,14 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         var dbPath = "myapp.db";
         builder.Services.AddDbContext<AppDbContext>(void (options) =>
             options.UseSqlite($"Data Source={dbPath}"));
+        builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
         builder.Services.AddCors();
 
 
@@ -31,95 +33,64 @@ internal class Program
         });
 
 
-        app.MapGet("/products", async Task<List<Product>> (AppDbContext context)
-            => await context.Products.ToListAsync());
+        app.MapGet("/products",
+            async Task<IReadOnlyCollection<Product>> (
+                    [FromServices] IProductRepository repo,
+                    CancellationToken cancellationToken)
+                => await repo.GetAll(cancellationToken));
+
 
         app.MapGet($"/products/get_product", async (
-                [FromServices]AppDbContext context,
-                [FromQuery] Guid id)
+                [FromServices] IProductRepository repo,
+                [FromQuery] Guid id,
+                CancellationToken cancellationToken)
             =>
         {
-            var product = await context.Products.FirstOrDefaultAsync(p => p.Id == id);
+            var product = await repo.GetById(id, cancellationToken);
             return product;
-            // if (product is null)
-            // {
-            //     return Results.NotFound($"Product whith  id = {id} not find!");
-            // }
-            //
-            // return Results.Ok($"{product.Name}");
         });
+
 
         app.MapPost("/products", async (
-            [FromServices] AppDbContext context,
-            [FromBody] Product product) =>
+            [FromServices] IProductRepository repo,
+            [FromBody] Product product,
+            CancellationToken cancellationToken) =>
         {
-            product.Id=Guid.NewGuid();
-            await context.AddAsync(product);
-            await context.SaveChangesAsync();
+            product.Id = Guid.NewGuid();
+            await repo.Add(product, cancellationToken);
         });
 
-        
 
-        app.MapDelete("/del_product", async ([FromBody] Guid id,[FromServices] AppDbContext context) =>
-        {
-            Product? product = await context.Products.FirstOrDefaultAsync(p => p.Id == id);
-            if (product != null)
-            {
-                context.Remove(product);
-                await context.SaveChangesAsync();
-            }
-        });
-        app.MapDelete("/delete_product", async ([FromQuery] Guid id, AppDbContext context) =>
-        {
-            Product? product = await context.Products.FirstOrDefaultAsync(p => p.Id == id);
-            if (product != null)
-            {
-                context.Remove(product);
-                await context.SaveChangesAsync();
-            }
-        });
-
-        app.MapPut("/products/update_product",
-            async ([FromQuery] Guid id, AppDbContext context, Product updateProduct) =>
-            {
-                var product = await context.Products.FirstOrDefaultAsync(p => p.Id == id);
-                if (product != null)
-                {
-                    product.Name = updateProduct.Name;
-                    product.Price = updateProduct.Price;
-                    product.Stock = updateProduct.Stock;
-                    product.Description = updateProduct.Description;
-                    product.Image = updateProduct.Image;
-                    await context.SaveChangesAsync();
-                }
-            });
-        app.MapPut("/update_product", async (
+        app.MapDelete("/del_product", async
+        (
             [FromQuery] Guid id,
-            [FromServices] AppDbContext context,
-            Product updateProduct) =>
+            [FromServices] IProductRepository repo,
+            CancellationToken cancellationToken
+        ) =>
         {
-            var product = await context.Products.FirstOrDefaultAsync(p => p.Id == id);
-            if (product is null)
-            {
-                return Results.NotFound($"Product whith  id = {id} not find!");
-            }
-
-            context.Entry(product).State = EntityState.Detached; //разрегистрируем product
-            context.Entry(updateProduct).State = EntityState.Modified; //регистрируем  новый измененный
-            await context.SaveChangesAsync();
-            return Results.Ok("ok");
+            await repo.DeleteById(id, cancellationToken);
         });
 
-        // app.MapPut("/products/{prodictId}", async Task (AppDbContext context, Product product) =>
-        // {
-        //
-        //     context.Update(product);
-        //     await context.SaveChangesAsync();
-        //
-        // });
+
+        app.MapPut("/update_product_id", async (
+            [FromServices] IProductRepository repo,
+            [FromQuery] Guid id,
+            [FromBody] Product updateProduct,
+            CancellationToken cancellationToken) =>
+        {
+            await repo.UpdateId(updateProduct, id, cancellationToken);
+        });
 
 
-// Configure the HTTP request pipeline.
+        app.MapPut("/update_product", async (
+            [FromServices] IProductRepository repo,
+            [FromBody] Product updateProduct,
+            CancellationToken cancellationToken) =>
+        {
+            await repo.Update(updateProduct, cancellationToken);
+        });
+
+
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
@@ -127,32 +98,8 @@ internal class Program
         }
 
         app.UseHttpsRedirection();
-//
-// var summaries = new[]
-// {
-//     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-// };
-//
-// app.MapGet("/weatherforecast", () =>
-//     {
-//         var forecast = Enumerable.Range(1, 5).Select(index =>
-//                 new WeatherForecast
-//                 (
-//                     DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-//                     Random.Shared.Next(-20, 55),
-//                     summaries[Random.Shared.Next(summaries.Length)]
-//                 ))
-//             .ToArray();
-//         return forecast;
-//     })
-//     .WithName("GetWeatherForecast")
-//     .WithOpenApi();
+
 
         app.Run();
     }
 }
-
-// record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-// {
-//     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-//}

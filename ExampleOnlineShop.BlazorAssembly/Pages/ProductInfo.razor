@@ -1,0 +1,37 @@
+@page "/ProductInfo/{ProductId:guid}"
+@using ExampleOnlineShop.HttpApiClient
+@using ExampleOnlineShop.Models
+<h3>ProductInfo</h3>
+@inject IShopClient ShopClient
+
+@if (_product is null)
+{
+    <h3>LOADING.....</h3>
+}
+else
+{
+    <div>
+        <p>@_product.Id</p>
+        <p>@_product.Name</p>
+        <p>@_product.Description</p>
+    </div>
+}
+
+@code {
+    private Product? _product;
+
+    [Parameter] public Guid ProductId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using (var cts = new CancellationTokenSource(TimeSpan.FromSeconds(3)))
+        {
+            CancellationToken cancellationToken = cts.Token;
+        }
+
+        await base.OnInitializedAsync();
+        _product = await ShopClient.GetProduct(ProductId, cancellationToken: default);
+    }
+
+
+}
