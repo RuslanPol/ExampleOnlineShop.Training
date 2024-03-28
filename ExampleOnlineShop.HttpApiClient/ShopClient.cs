@@ -17,7 +17,7 @@ public class ShopClient : IShopClient
 
     public async Task<IReadOnlyCollection<Product>> GetProducts(CancellationToken cancellationToken= default)
     {
-        var uri = $"{_host}/products";
+        var uri = $"{_host}/products/get_all";
         IReadOnlyCollection<Product>? products =
             await _httpClient.GetFromJsonAsync<IReadOnlyCollection<Product>>(uri,cancellationToken);
         return products!;
@@ -32,7 +32,7 @@ public class ShopClient : IShopClient
             throw new ArgumentNullException(nameof(product));
         }
 
-        var uri = $"{_host}/products";
+        var uri = $"{_host}/products/add_product";
         var responseMessage = await _httpClient.PostAsJsonAsync(uri, product, cancellationToken);
         responseMessage.EnsureSuccessStatusCode();
     }

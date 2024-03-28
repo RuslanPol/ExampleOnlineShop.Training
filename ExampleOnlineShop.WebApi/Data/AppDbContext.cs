@@ -1,7 +1,7 @@
 using ExampleOnlineShop.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ExampleOnlineShop.WebApi;
+namespace ExampleOnlineShop.WebApi.Data;
 
 public class AppDbContext:DbContext
 
