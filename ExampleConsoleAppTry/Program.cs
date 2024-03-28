@@ -5,7 +5,7 @@ using ExampleOnlineShop.Models;
 
 Console.WriteLine("Hello, World!");
 var shopClient = new ShopClient("https://localhost:7003");
- await shopClient.AddProduct(new Product(Guid.NewGuid(),"bread",100m,100,"bla-bla","/"),default);
+ await shopClient.AddProduct(new Product(Guid.NewGuid(),"bread",100m,100,"bla-bla","/"),cancellationToken:default);
  var products = await shopClient.GetProducts();
 foreach (var product in products)
 {
