@@ -18,7 +18,9 @@ internal class Program
         var dbPath = "myapp.db";
         builder.Services.AddDbContext<AppDbContext>(void (options) =>
             options.UseSqlite($"Data Source={dbPath}"));
-        builder.Services.AddScoped<IProductRepository, ProductRepository>();
+        //builder.Services.AddScoped<IProductRepository, ProductRepository>();
+        builder.Services.AddScoped(typeof(IRepository<Product>), typeof(EfRepository<Product>));
+
 
         builder.Services.AddCors();
 
