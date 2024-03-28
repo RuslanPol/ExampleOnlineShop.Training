@@ -1,8 +1,8 @@
 namespace ExampleOnlineShop.Models
 {
-    public record Product
+    public record Product : IEntity
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; init; }
         public string Name { get; set; }
         public decimal Price { get; set; }
         public int Stock { get; set; }

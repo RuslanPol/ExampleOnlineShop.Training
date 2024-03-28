@@ -7,9 +7,9 @@ namespace ExampleOnlineShop.WebApi.Controllers;
 [Route("products")]
 public class ProductController : ControllerBase
 {
-    private readonly IProductRepository _productRepository;
+    private readonly IRepository<Product> _productRepository;
 
-    public ProductController(IProductRepository productRepository)
+    public ProductController(IRepository<Product> productRepository)
     {
         _productRepository = productRepository;
     }
@@ -35,7 +35,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpPut("update_product")]
-    public async Task Update(Product product,CancellationToken cancellationToken)
+    public async Task Update(Product product, CancellationToken cancellationToken)
     {
         await _productRepository.Update(product, cancellationToken);
     }
