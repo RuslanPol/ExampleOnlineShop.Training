@@ -1,7 +1,8 @@
 using ExampleOnlineShop.Models;
+using ExampleOnlineShop.WebApi.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace ExampleOnlineShop.WebApi.Data;
+namespace ExampleOnlineShop.Data.Genericrepository;
 
 public class EfRepository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
 {
