@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleOnlineShop.HttpApiCl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleOnlineShop.BlazorAssembly", "ExampleOnlineShop.BlazorAssembly\ExampleOnlineShop.BlazorAssembly.csproj", "{166E0DF2-9EB8-44B5-A3A8-C99BD21F2E36}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleOnlineShop.Data", "ExampleOnlineShop.Data\ExampleOnlineShop.Data.csproj", "{DCF797BC-E3B5-41B5-956D-D343FB46F728}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{166E0DF2-9EB8-44B5-A3A8-C99BD21F2E36}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{166E0DF2-9EB8-44B5-A3A8-C99BD21F2E36}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{166E0DF2-9EB8-44B5-A3A8-C99BD21F2E36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCF797BC-E3B5-41B5-956D-D343FB46F728}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCF797BC-E3B5-41B5-956D-D343FB46F728}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCF797BC-E3B5-41B5-956D-D343FB46F728}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCF797BC-E3B5-41B5-956D-D343FB46F728}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -1,3 +1,4 @@
+using ExampleOnlineShop.Data.Genericrepository;
 using ExampleOnlineShop.Models;
 using Microsoft.EntityFrameworkCore;
 
