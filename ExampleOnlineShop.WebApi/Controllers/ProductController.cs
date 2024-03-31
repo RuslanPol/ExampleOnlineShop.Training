@@ -1,5 +1,4 @@
 using ExampleOnlineShop.Models;
-using ExampleOnlineShop.WebApi.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExampleOnlineShop.WebApi.Controllers;
