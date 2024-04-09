@@ -1,15 +1,10 @@
+using ExampleOnlineShop.Data.Genericrepository;
 using ExampleOnlineShop.Models;
 
-namespace ExampleOnlineShop.WebApi.Data
+namespace ExampleOnlineShop.Data.Repositories
 {
-    public interface IProductRepository
+    public interface IProductRepository:IRepository<Product>
     {
-        Task<IReadOnlyCollection<Product>> GetAll(CancellationToken cancellationToken);
-        Task<Product> GetById(Guid id,CancellationToken cancellationToken);
-        Task Add(Product product, CancellationToken cancellationToken);
-        //Task UpdateId(Product product,Guid id,CancellationToken cancellationToken);
-        Task Update(Product product,CancellationToken cancellationToken);
-        Task DeleteById(Guid id,CancellationToken cancellationToken);
         Task<Product> GetByName(string name, CancellationToken cancellationToken);
 
     }

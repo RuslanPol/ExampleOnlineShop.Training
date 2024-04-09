@@ -57,4 +57,17 @@ public class ShopClient : IShopClient
         var responseMassage = await _httpClient.DeleteAsync(uri,cancellationToken);
         responseMassage.EnsureSuccessStatusCode();
     }
+    public async Task<IReadOnlyCollection<Account>> GetAccounts(CancellationToken cancellationToken= default)
+    {
+        var uri = $"{_host}/accounts/get_all";
+        IReadOnlyCollection<Account>? accounts =
+            await _httpClient.GetFromJsonAsync<IReadOnlyCollection<Account>>(uri,cancellationToken);
+        return accounts!;
+    }
+
+    public async Task AddAccount(Account account, CancellationToken cancellationToken)
+    {
+        var uri =$"{_host}/accounts/add_account";
+        await _httpClient.PostAsJsonAsync(uri, account, cancellationToken);
+    }
 }

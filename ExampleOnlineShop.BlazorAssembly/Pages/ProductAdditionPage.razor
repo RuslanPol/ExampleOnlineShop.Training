@@ -1,0 +1,34 @@
+@page "/productAddition"
+@using ExampleOnlineShop.Models
+@using ExampleOnlineShop.HttpApiClient
+<h3>Product Addition Page</h3>
+@inject IShopClient ShopClient
+<EditForm Model="_product" OnValidSubmit="ProcessValidForm">
+    <DataAnnotationsValidator />
+    <ul>
+ 
+ <li> Name: <InputText @bind-Value="_product.Name" /></li><br/>
+ <li> Price: <InputNumber @bind-Value="_product.Price" /></li><br/>
+ <li> Stock: <InputNumber @bind-Value="_product.Stock" /></li><br/>
+ <li> Description: <InputText @bind-Value="_product.Description" /></li><br/>
+ <li> Image: <InputText @bind-Value="_product.Image" /></li><br/>
+  @* Красивее оборачивать в table *@
+ 
+  <br/><br/><br/> <input type="submit" value="Add"  />
+    </ul>
+  <ValidationSummary />
+</EditForm>
+
+@code {
+  private Product _product = new();
+  
+  private async Task ProcessValidForm()
+  {
+     
+     await ShopClient.AddProduct(_product );
+     _product = new Product();
+
+  }
+  
+
+}

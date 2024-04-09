@@ -9,4 +9,6 @@ public interface IShopClient
     Task<Product?> GetProduct(Guid id,CancellationToken cancellationToken=default);
     Task UpdateProduct(Guid id, Product product,CancellationToken cancellationToken=default);
     Task DeleteProduct(Guid id,CancellationToken cancellationToken=default);
+    Task<IReadOnlyCollection<Account>> GetAccounts(CancellationToken cancellationToken=default);
+    Task AddAccount(Account account,CancellationToken cancellationToken);
 }

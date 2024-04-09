@@ -1,4 +1,5 @@
 using ExampleOnlineShop.Data.Genericrepository;
+using ExampleOnlineShop.Data.Repositories;
 using ExampleOnlineShop.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,8 +19,9 @@ internal class Program
         var dbPath = "myapp.db";
         builder.Services.AddDbContext<AppDbContext>(void (options) =>
             options.UseSqlite($"Data Source={dbPath}"));
-        //builder.Services.AddScoped<IProductRepository, ProductRepository>();
-        builder.Services.AddScoped(typeof(IRepository<Product>), typeof(EfRepository<Product>));
+        builder.Services.AddScoped<IProductRepository, ProductRepository>();
+        builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+        //builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
 
         builder.Services.AddCors();

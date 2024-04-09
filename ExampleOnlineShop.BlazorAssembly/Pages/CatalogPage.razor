@@ -5,15 +5,19 @@
 <h3>Catalog</h3>
 @if (_products is null)
 {
-   <h3>LOADING...</h3>
-}else
+    <h3>LOADING...</h3>
+}
+else
 {
-@foreach (var product in _products)
+    @foreach (var product in _products)
 
     {
         <p>@product</p>
         <a href="ProductInfo/@product.Id">INFORMATION</a>
     }
+
+    <br/>
+    <a href="productAddition">PAGE PRODUCT ADDITION</a>
 }
 
 
@@ -25,5 +29,7 @@
         await base.OnInitializedAsync();
         _products = await ShopClient.GetProducts();
     }
+
+}
 
 }

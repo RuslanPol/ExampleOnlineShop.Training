@@ -1,8 +1,9 @@
 using ExampleOnlineShop.Data.Genericrepository;
 using ExampleOnlineShop.Models;
+using ExampleOnlineShop.WebApi.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace ExampleOnlineShop.WebApi.Data;
+namespace ExampleOnlineShop.Data.Repositories;
 
 public class ProductRepository : EfRepository<Product>, IProductRepository
 {
@@ -10,7 +11,7 @@ public class ProductRepository : EfRepository<Product>, IProductRepository
 
     public ProductRepository(AppDbContext dbContext):base(dbContext)
     {
-        _dbContext = dbContext;
+        _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
     }
     public async Task<Product> GetByName(string name, CancellationToken cancellationToken)
     {

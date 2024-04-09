@@ -1,0 +1,26 @@
+@page "/Login"
+@using ExampleOnlineShop.Models
+@using ExampleOnlineShop.HttpApiClient
+@inject IShopClient ShopClient
+<h3>Авторизация</h3>
+
+<EditForm Model="_account" OnValidSubmit="ProcessValidForm">
+    <DataAnnotationsValidator />
+ 
+    Email: <InputText @bind-Value="_account.Email" />
+    Пароль: <InputText @bind-Value="_account.Password" />
+    @* Красивее оборачивать в table *@
+ 
+    <br/> <input type="submit" value="Войти">
+    <ValidationSummary />
+</EditForm>
+
+@code {
+    private Account _account = new();
+    
+    private async Task ProcessValidForm()
+    {
+        CancellationToken cancellationToken = default;
+        await ShopClient.AddAccount(_account, cancellationToken);
+    }
+}
