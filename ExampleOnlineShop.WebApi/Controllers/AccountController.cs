@@ -1,5 +1,6 @@
 using ExampleOnlineShop.Data.Repositories;
-using ExampleOnlineShop.Models;
+using ExampleOnlineShop.Domain;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExampleOnlineShop.WebApi.Controllers;
@@ -29,23 +30,37 @@ public class AccountController:ControllerBase
     }
 
     [HttpGet("get_account_by_email")]
-    public async Task<Account> GetByEmail(string email, CancellationToken cancellationToken)
+    public async Task<ActionResult<Account>> GetByEmail(string email, CancellationToken cancellationToken)
     {
+        if (email == null) throw new ArgumentNullException(nameof(email));
         var _account = await _accountRepository.GetByEmail(email, cancellationToken);
         return _account;
         
     }
 
-    [HttpPost("add_account")]
-    public async Task Add([FromBody]Account account, CancellationToken cancellationToken)
+    [HttpPost("register")]
+    public async Task<ActionResult<Account>> Register(RegisterRequest request, CancellationToken cancellationToken=default)
     {
+        if (request == null) throw new ArgumentNullException(nameof(request));
+        var existingAccount = await _accountRepository.GetByEmail(request.Email, cancellationToken);
+        if (existingAccount != null)
+        {
+            // Аккаунт уже существует, возвращаем сообщение об ошибке
+            return BadRequest("An account with the given email already exists.");
+        }
+        var account = new Account(Guid.NewGuid(), request.Email,request.Email, request.Password);
+        var accounts = await _accountRepository.GetAll(cancellationToken);
+       
         await _accountRepository.Add(account, cancellationToken);
+        return CreatedAtAction(nameof(GetById), new { id = account.Id }, account);
+        
     }
 
     [HttpPut("update_account")]
-    public async Task UpdateAccount(Account account, CancellationToken cancellationToken)
+    public async Task<IActionResult>  UpdateAccount(Account account, CancellationToken cancellationToken)
     {
         await _accountRepository.Update(account, cancellationToken);
+        return Ok();
     }
 
     [HttpDelete("delete_account")]

@@ -1,3 +1,4 @@
+using ExampleOnlineShop.Domain;
 using ExampleOnlineShop.Models;
 
 namespace ExampleOnlineShop.HttpApiClient;

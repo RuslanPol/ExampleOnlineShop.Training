@@ -2,7 +2,7 @@ using ExampleOnlineShop.Models;
 
 namespace ExampleOnlineShop.Data.Genericrepository
 {
-    public interface IRepository<TEntity> where TEntity : IEntity
+    public interface IRepository<TEntity>
     {
         Task<IReadOnlyCollection<TEntity>> GetAll(CancellationToken cancellationToken);
         Task<TEntity> GetById(Guid id,CancellationToken cancellationToken);

@@ -1,4 +1,5 @@
 using ExampleOnlineShop.Data.Genericrepository;
+using ExampleOnlineShop.Domain;
 using ExampleOnlineShop.Models;
 
 namespace ExampleOnlineShop.Data.Repositories;

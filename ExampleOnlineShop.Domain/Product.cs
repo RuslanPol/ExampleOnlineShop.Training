@@ -1,3 +1,5 @@
+using ExampleOnlineShop.Domain;
+
 namespace ExampleOnlineShop.Models
 {
     public record Product : IEntity

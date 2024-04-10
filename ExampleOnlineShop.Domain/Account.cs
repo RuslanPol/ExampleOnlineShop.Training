@@ -1,6 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ExampleOnlineShop.Models;
+
+
+namespace ExampleOnlineShop.Domain;
 
 public record Account : IEntity
 {

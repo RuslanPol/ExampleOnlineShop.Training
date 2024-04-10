@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using ExampleOnlineShop.Domain;
 using ExampleOnlineShop.Models;
 
 namespace ExampleOnlineShop.HttpApiClient;
@@ -67,7 +68,7 @@ public class ShopClient : IShopClient
 
     public async Task AddAccount(Account account, CancellationToken cancellationToken)
     {
-        var uri =$"{_host}/accounts/add_account";
+        var uri =$"{_host}/accounts/register";
         await _httpClient.PostAsJsonAsync(uri, account, cancellationToken);
     }
 }
