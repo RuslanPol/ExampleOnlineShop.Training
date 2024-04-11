@@ -25,7 +25,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ExampleOnlineShop.Data\ExampleOnlineShop.Data.csproj" />
-      <ProjectReference Include="..\ExampleOnlineShop.Domain\ExampleOnlineShop.Domain.csproj" />
       <ProjectReference Include="..\ExampleOnlineShop.HttpModels\ExampleOnlineShop.HttpModels.csproj" />
     </ItemGroup>
 

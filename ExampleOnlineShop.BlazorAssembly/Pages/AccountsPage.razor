@@ -1,7 +1,7 @@
 @page "/Accounts"
-@using ExampleOnlineShop.Models
 @using ExampleOnlineShop.HttpApiClient
 @using ExampleOnlineShop.Domain
+@using ExampleOnlineShop.Domain.Entities
 <h3>AccountsPage</h3>
 @inject IShopClient ShopClient;
 
@@ -18,7 +18,7 @@
                 @account.Email</li>
             <br/>
         }
-        <a href="/accountAddition"> ACCOUNT ADDITION</a>
+        
     </ul>
     }
 

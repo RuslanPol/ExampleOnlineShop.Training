@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using ExampleOnlineShop.Domain.Entities;
 using ExampleOnlineShop.HttpApiClient;
-using ExampleOnlineShop.Models;
 
 Console.WriteLine("Hello, World!");
 var shopClient = new ShopClient("https://localhost:7003");

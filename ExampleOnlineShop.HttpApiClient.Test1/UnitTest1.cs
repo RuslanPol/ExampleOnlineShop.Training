@@ -1,4 +1,4 @@
-using ExampleOnlineShop.Models;
+using ExampleOnlineShop.Domain.Entities;
 
 namespace ExampleOnlineShop.HttpApiClient.Test1;
 

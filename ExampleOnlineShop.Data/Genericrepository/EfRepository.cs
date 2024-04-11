@@ -1,5 +1,6 @@
 using ExampleOnlineShop.Domain;
-using ExampleOnlineShop.Models;
+using ExampleOnlineShop.Domain.Entities;
+using ExampleOnlineShop.Domain.InterfacesRepositories;
 using ExampleOnlineShop.WebApi.Data;
 using Microsoft.EntityFrameworkCore;
 

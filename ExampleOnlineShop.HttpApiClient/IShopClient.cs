@@ -1,5 +1,6 @@
 using ExampleOnlineShop.Domain;
-using ExampleOnlineShop.Models;
+using ExampleOnlineShop.Domain.Entities;
+using ExampleOnlineShop.HttpModels.Requests;
 
 namespace ExampleOnlineShop.HttpApiClient;
 
@@ -11,5 +12,5 @@ public interface IShopClient
     Task UpdateProduct(Guid id, Product product,CancellationToken cancellationToken=default);
     Task DeleteProduct(Guid id,CancellationToken cancellationToken=default);
     Task<IReadOnlyCollection<Account>> GetAccounts(CancellationToken cancellationToken=default);
-    Task AddAccount(Account account,CancellationToken cancellationToken);
+    Task RegisterUser(RegisterRequest request,CancellationToken cancellationToken);
 }

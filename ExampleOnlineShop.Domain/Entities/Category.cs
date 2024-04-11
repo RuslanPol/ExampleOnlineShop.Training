@@ -1,4 +1,4 @@
-namespace ExampleOnlineShop.Models;
+namespace ExampleOnlineShop.Domain.Entities;
 
 public class Category
 {

@@ -20,6 +20,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ExampleOnlineShop.HttpApiClient\ExampleOnlineShop.HttpApiClient.csproj" />
+      <ProjectReference Include="..\ExampleOnlineShop.HttpModels\ExampleOnlineShop.HttpModels.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,11 +1,11 @@
-using ExampleOnlineShop.Data.Genericrepository;
-using ExampleOnlineShop.Models;
+using ExampleOnlineShop.Domain.Entities;
 
-namespace ExampleOnlineShop.Data.Repositories
+namespace ExampleOnlineShop.Domain.InterfacesRepositories
 {
     public interface IProductRepository:IRepository<Product>
     {
         Task<Product> GetByName(string name, CancellationToken cancellationToken);
+        
 
     }
 }

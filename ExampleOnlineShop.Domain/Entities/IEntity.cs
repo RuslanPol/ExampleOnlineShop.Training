@@ -1,4 +1,4 @@
-namespace ExampleOnlineShop.Domain;
+namespace ExampleOnlineShop.Domain.Entities;
 
 public interface IEntity
 {

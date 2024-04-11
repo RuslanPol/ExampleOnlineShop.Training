@@ -1,5 +1,6 @@
 using ExampleOnlineShop.Data.Genericrepository;
-using ExampleOnlineShop.Models;
+using ExampleOnlineShop.Domain.Entities;
+using ExampleOnlineShop.Domain.InterfacesRepositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExampleOnlineShop.WebApi.Controllers;

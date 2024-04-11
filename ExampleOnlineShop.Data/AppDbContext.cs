@@ -1,5 +1,5 @@
 using ExampleOnlineShop.Domain;
-using ExampleOnlineShop.Models;
+using ExampleOnlineShop.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace ExampleOnlineShop.WebApi.Data;

@@ -1,6 +1,7 @@
 using ExampleOnlineShop.Data.Genericrepository;
 using ExampleOnlineShop.Domain;
-using ExampleOnlineShop.Models;
+using ExampleOnlineShop.Domain.Entities;
+using ExampleOnlineShop.Domain.InterfacesRepositories;
 using ExampleOnlineShop.WebApi.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,5 +23,10 @@ public class AccountRepository : EfRepository<Account>,IAccountRepository
         return _account;
     }
 
-   
+    public  async Task<bool> IsExistedEmail(string email, CancellationToken cancellationToken)
+    {
+        if (email == null) throw new ArgumentNullException(nameof(email));
+        return await _dbContext.Accounts.AnyAsync(it=>it.Email==email,cancellationToken);
+       
+    }
 }

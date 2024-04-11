@@ -1,6 +1,4 @@
-using ExampleOnlineShop.Domain;
-
-namespace ExampleOnlineShop.Models
+namespace ExampleOnlineShop.Domain.Entities
 {
     public record Product : IEntity
     {

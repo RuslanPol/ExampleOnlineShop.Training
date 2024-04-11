@@ -1,6 +1,4 @@
-using ExampleOnlineShop.Models;
-
-namespace ExampleOnlineShop.Data.Genericrepository
+namespace ExampleOnlineShop.Domain.InterfacesRepositories
 {
     public interface IRepository<TEntity>
     {
