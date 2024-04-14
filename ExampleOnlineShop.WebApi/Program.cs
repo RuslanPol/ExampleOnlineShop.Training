@@ -23,7 +23,7 @@ internal class Program
         builder.Services.AddScoped<IProductRepository, ProductRepository>();
         builder.Services.AddScoped<IAccountRepository, AccountRepository>();
         builder.Services.AddScoped<AccountService>();
-        //builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+      
 
 
         builder.Services.AddCors();

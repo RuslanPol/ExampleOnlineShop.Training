@@ -1,4 +1,3 @@
-using ExampleOnlineShop.Domain;
 using ExampleOnlineShop.Domain.Entities;
 using ExampleOnlineShop.Domain.InterfacesRepositories;
 using ExampleOnlineShop.WebApi.Data;
