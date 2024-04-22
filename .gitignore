@@ -478,3 +478,5 @@ FodyWeavers.xsd
 *.sln.iml
 #custom
 *.db
+
+.idea
