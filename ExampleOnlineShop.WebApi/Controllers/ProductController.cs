@@ -23,7 +23,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet($"get_product")]
-    public async Task<Product> GetById(Guid id, CancellationToken cancellationToken)
+    public async Task<Product> GetById([FromQuery]Guid id, CancellationToken cancellationToken)
     {
         var product = await _productRepository.GetById(id, cancellationToken);
         return product;
@@ -36,13 +36,13 @@ public class ProductController : ControllerBase
     }
 
     [HttpPut("update_product")]
-    public async Task Update(Product product, CancellationToken cancellationToken)
+    public async Task Update([FromBody]Product product, CancellationToken cancellationToken)
     {
         await _productRepository.Update(product, cancellationToken);
     }
 
     [HttpDelete("delete_product")]
-    public async Task DeleteById(Guid id, CancellationToken cancellationToken)
+    public async Task DeleteById([FromQuery]Guid id, CancellationToken cancellationToken)
     {
         await _productRepository.DeleteById(id, cancellationToken);
     }
