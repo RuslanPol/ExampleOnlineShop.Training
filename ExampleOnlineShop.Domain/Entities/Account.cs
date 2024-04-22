@@ -10,15 +10,15 @@ namespace ExampleOnlineShop.Domain.Entities
         [Required]
         public string Email { get; set; } = "";
         [Required, MinLength(6)]
-        public string Password { get; set; } = "";
+        public string PasswordHash { get; set; } = "";
         public Account(){}
 
-        public Account(Guid id, string name, string email, string password)
+        public Account(Guid id, string name, string email, string passwordHash)
         {
             Id = id;
             Name = name;
             Email = email;
-            Password = password;
+            PasswordHash = passwordHash;
         }
     }
 }

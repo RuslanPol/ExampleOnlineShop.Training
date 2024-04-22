@@ -12,12 +12,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleOnlineShop.Data", "E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleOnlineShop.Domain", "ExampleOnlineShop.Domain\ExampleOnlineShop.Domain.csproj", "{DD4019EA-A269-4AEC-BB01-D2185562B623}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "frontend", "frontend", "{91B0530B-29B1-4A23-8A2C-CF507017B76D}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "backend", "backend", "{D572DD16-AEA7-4C24-982C-DBBFDA68D97A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{B9F75312-A4A1-4878-91A8-E81C4EF4BA72}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
