@@ -7,9 +7,11 @@ namespace ExampleOnlineShop.WebApi.Services;
 public class PasswordHasherService : IPasswordHasherService
 {
     private readonly Account _accountFake = new Account(Guid.NewGuid(), "Fake", "fake@fake", "");
-    private readonly PasswordHasher<Account> _hasher ;
+    private readonly PasswordHasher<Account> _hasher =new PasswordHasher<Account>();
 
-    
+   
+
+
     public string HashPassword(string password)
     {
         if (password == null) throw new ArgumentNullException(nameof(password));

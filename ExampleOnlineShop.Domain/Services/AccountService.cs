@@ -36,7 +36,8 @@ public class AccountService
             throw new AccountRegisteredExeption("an account with this email has already been registered");
         }
 
-        var passwordHash = _passwordHasherService.HashPassword(password);
+        var passwordHash = _passwordHasherService.HashPassword(password); 
+                           
         var account = new Account(Guid.NewGuid(), name, email, passwordHash);
         await _accountRepository.Add(account, cancellationToken);
 
